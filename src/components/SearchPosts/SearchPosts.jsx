@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import classes from './SearchPosts.module.css';
+import React from 'react';
+import classes from './searchPosts.module.css';
 
-let SearchPosts = ({ onChange, searchInputValue }) => {
+const SearchPosts = ({ reducer, searchInputValue }) => {
 
     return (
         <div className={classes.wrap}>
             <input onChange={(e) => {
-                onChange(e.target.value);
+                reducer({type: 'ON_CHANGE_SEARCH', value: e.target.value});
             }} value={searchInputValue} placeholder='Search...'></input>
         </div>
     )

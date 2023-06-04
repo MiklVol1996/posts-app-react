@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
-import './App.css';
-import AddPostForm from './components/AddPostForm/AddPostForm';
-import Module from './components/ModuleWindow/Module';
-import Posts from './components/Posts/Posts';
-import SettingsComponent from './components/SettingsComponent/SettingsComponent';
-import { usePosts } from './hooks/FilterSearch';
-import PostService from './API/PostService';
-import Loader from './UI/Loader/Loader';
+import './app.css';
+import AddPostModule from './components/addPostForm/AddPostModule';
+import Module from './components/moduleWindow/Module';
+import Posts from './components/posts/Posts';
+import SettingsComponent from './components/settingsComponent/SettingsComponent';
+import { usePosts } from './hooks/filterSearch';
+import PostService from './api/postService';
+import Loader from './UI/loader/Loader';
 import { GetPages } from './hooks/pagination';
-import PageNumeration from './components/PageNumeration/PageNumeration';
+import PageNumeration from './components/pageNumeration/PageNumeration';
 
-function App() {
+const App = () => {
 
   let [posts, setPosts] = useState([]);
   let [filter, setFilter] = useState({ search: '', filter: '' });
@@ -49,19 +49,59 @@ function App() {
 
   let filteredSearchedPosts = usePosts(posts, filter.filter, filter.search);
 
+  function reducer(action){
+    switch(action.type){
+      case 'CHANGE_FILTER': {
+        setFilter({...filter, filter : action.value});
+        break;
+      }
+      case 'ON_CHANGE_SEARCH': {
+        setFilter({ ...filter, search: action.value });
+        break
+      }
+      case 'SET_CURRENT_PAGE': {
+        setCurrentPage(action.value);
+        break;
+      }
+      case 'FETCH_POSTS': {
+        fetchPosts(action.value);
+        break;
+      }
+      case 'DELETE_ALL_POSTS': {
+        deleteAllPosts();
+        break;
+      }
+      case 'SET_PAGES_COUNT': {
+        setPagesCount(action.value);
+        break;
+      }
+      case 'SET_IS_MODALE_ACTIVE': {
+        setIsModaleActive(action.value);
+        break;
+      }
+      case 'ADD_POST': {
+        setPosts([...posts, action.value]);
+        setIsModaleActive(false);
+        break;
+      }
+      case 'DELETE_POST': {
+        deletePost(action.value);
+        break;
+      }
+      case 'FETCH_POSTS': {
+        fetchPosts(action.value);
+        break;
+      }
+    }
+  }
+
   return (
     <div className='wrap'>
       <div>
-
-        <Module setIsActive={() => setIsModaleActive(false)} isActive={isModaleActive}>
-          <AddPostForm addPost={(post) => { setPosts([...posts, post]); setIsModaleActive(false); }} />
+        <Module reducer={reducer} isActive={isModaleActive}>
+          <AddPostModule reducer={reducer}/>
         </Module>
-
-        <SettingsComponent addPost={(post) => setPosts([...posts, post])}
-          onChangeFilter={(typeSort) => setFilter({ ...filter, filter: typeSort })}
-          searchInputValue={filter.search} onChangeSearch={(word) => setFilter({ ...filter, search: word })} 
-          setCurrentPage={()=>setCurrentPage(1)} fetchPosts={()=>fetchPosts(1)} deleteAllPosts={deleteAllPosts}
-          setPagesCount={()=>setPagesCount(0)} setIsModaleActive={()=>setIsModaleActive(true)}/>
+        <SettingsComponent reducer={reducer} searchInputValue={filter.search}/>
       </div>
       <hr />
       {isPostsLoading
@@ -72,16 +112,15 @@ function App() {
         </div>
         :
         <div>
-          <Posts posts={filteredSearchedPosts} deletePost={(id) => deletePost(id)} />
+          <Posts posts={filteredSearchedPosts} reducer={reducer}/>
           <PageNumeration currentPage={currentPage} pagesCount={pagesCount}
-            setCurrentPage={(page) => setCurrentPage(page)} fetchPosts={(page) => fetchPosts(page)} />
+            reducer={reducer}/>
         </div>
       }
     </div>
   )
-
-
 }
+
 export default App;
 
 

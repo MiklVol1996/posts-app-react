@@ -1,9 +1,9 @@
 import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import Button from './../../UI/Button/Button';
-import classes from './Posts.module.css';
+import Button from '../../UI/button/Button';
+import classes from './posts.module.css';
 
-let Posts = ({ posts, deletePost }) => {
+const Posts = ({posts, reducer}) => {
 
     if (!posts.length) {
         return (
@@ -24,12 +24,10 @@ let Posts = ({ posts, deletePost }) => {
                         <CSSTransition key={post.id} timeout={500} classNames='post'>
                         <div className={classes.wrap}>
                             <div>
-                                <div className={classes.description}>{post.id} {post.title}</div>
+                                <div className={classes.description}>{`${post.id} ${post.title}`}</div>
                                 <div className={classes.body}>{post.body}</div>
                             </div>
-                            
-                            <Button onClick={() => deletePost(post.id)}>Delete</Button>
-                           
+                            <Button onClick={() => reducer({type: 'DELETE_POST', value: post.id})}>Delete</Button>
                         </div>
                         </CSSTransition>
                     )

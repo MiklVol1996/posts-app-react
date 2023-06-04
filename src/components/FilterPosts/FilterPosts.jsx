@@ -1,14 +1,21 @@
 import React from 'react';
-import classes from './FilterPosts.module.css';
+import classes from './filterPosts.module.css';
 
-let FilterPosts = ({onChange}) => {
+const FilterPosts = ({reducer}) => {
+
+  let selectData = [
+    {content: 'By name', value: 'title'},
+    {content: 'By content', value: 'body'},
+    {content: 'By order', value: 'id'},
+  ]
+
   return (
       <div className={classes.filterPosts}>
-        <select  onChange={(e)=>onChange(e.target.value)}>
+        <select  onChange = {e => reducer({type: 'CHANGE_FILTER', value: e.target.value})}>
         <option disabled selected >Filter by...</option>
-        <option value='title'>By name</option>
-        <option value='body'>By content</option>
-        <option value='id'>By order</option>
+        {
+          selectData.map(el => <option value = {el.value}>{el.content}</option>)
+        }
       </select>
       </div>
   )
