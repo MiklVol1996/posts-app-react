@@ -1,0 +1,24 @@
+.modale_wrap{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    transform: scale(0);
+    transition: 0.5s;
+}
+
+.modale_content{
+    padding: 20px;
+    background-color: #c4eecd;
+    border-radius: 30px;
+}
+
+.active{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(1);
+}
+

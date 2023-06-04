@@ -1,0 +1,9 @@
+.wrap{
+    margin-bottom: 30px;
+}
+
+.wrap input{
+    border-color: green;
+    width: 280px;
+    height: 23px;
+}

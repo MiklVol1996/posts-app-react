@@ -1,0 +1,47 @@
+.pages{
+    display: flex;
+    margin-bottom: 100px;
+  }
+  
+  .page_item{
+    font-size: 20px;
+    border: 2px solid rgb(5, 111, 58);
+    padding: 8px;
+    margin: 0 2px;
+    background-color: #badbba;
+    width: 15px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  .page_item:hover{
+  
+    font-size: 20px;
+    width: 15px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgb(230, 185, 126);
+    padding: 8px;
+    margin: 0 2px;
+    background-color: #b4dec1;
+    cursor: pointer;
+  }
+  
+  .active{
+    width: 15px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    border: 2px solid rgb(237, 144, 22);
+    padding: 8px;
+    margin: 0 2px;
+    background-color: #6fca8a;
+  }

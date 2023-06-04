@@ -1,0 +1,37 @@
+.wrap{
+  width: 800px;
+  margin: 0 auto;
+}
+
+.post-enter {
+  transform: translateX(-650px);
+}
+.post-enter-active {
+  opacity: 1;
+  transform: translateX(0px);
+  transition: opacity 300ms, transform 300ms;
+}
+.post-exit {
+  opacity: 1;
+}
+.post-exit-active {
+  opacity: 0;
+  transform: translateX(-350px);
+  transition: opacity 200ms, transform 200ms;
+}
+
+.flex{
+  display: flex;
+  justify-content: space-between;
+}
+
+.loader{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+
+
